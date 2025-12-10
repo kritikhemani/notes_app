@@ -3,3 +3,10 @@ from pydantic import BaseModel
 
 app = FastAPI(title="Notes API")
 
+
+@app.post("/notes/")
+def create_note():
+    pass
+
+
+
