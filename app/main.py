@@ -9,4 +9,7 @@ def create_note():
     pass
 
 
+@app.get("/notes/")
+def read_notes():
+    pass
 
