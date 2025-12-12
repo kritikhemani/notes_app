@@ -1,5 +1,6 @@
 from app.database import Base
 from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import Text
 
 
 class Note(Base):
@@ -7,4 +8,4 @@ class Note(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column(nullable=False)
-    content: Mapped[str] = mapped_column(nullable=False)
+    content: Mapped[str] = mapped_column(Text, nullable=False)
