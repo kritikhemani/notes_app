@@ -3,6 +3,10 @@ from pydantic import BaseModel
 
 app = FastAPI(title="Notes API")
 
+class NoteSchema(BaseModel):
+    title: str
+    content: str
+
 
 @app.post("/notes/")
 def create_note():
