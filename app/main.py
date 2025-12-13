@@ -22,6 +22,7 @@ async def create_note(note: NoteSchema, db: AsyncSession = Depends(get_db)):
 
 
 @app.get("/notes/")
-def read_notes():
-    pass
+async def read_notes(db: AsyncSession = Depends(get_db)):
+    result = await db.execute(select(Note))
+    return result.scalars().all()
 
