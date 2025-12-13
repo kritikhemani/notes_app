@@ -1,5 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends, HTTPException
 from pydantic import BaseModel
+from sqlalchemy.ext.asyncio import AsyncSession
+from app.database import get_db
+from app.models import Note
+from sqlalchemy import select
 
 app = FastAPI(title="Notes API")
 
@@ -9,8 +13,12 @@ class NoteSchema(BaseModel):
 
 
 @app.post("/notes/")
-def create_note():
-    pass
+async def create_note(note: NoteSchema, db: AsyncSession = Depends(get_db)):
+    new_note = Note(title=note.title, content=note.content)
+    db.add(new_note)
+    await db.commit()
+    await db.refresh(new_note)
+    return new_note
 
 
 @app.get("/notes/")
